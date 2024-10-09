@@ -52,12 +52,12 @@ public class SecurityConfing {
 
                 .authorizeHttpRequests(authorize-> {
                     authorize.requestMatchers(HttpMethod.GET,"/","v1/index2").permitAll();
-                    authorize.anyRequest().authenticated();
+                    //authorize.anyRequest().authenticated();
                 })
 
 
                 //Oauth 2.0
-                .oauth2Login(Customizer.withDefaults())
+                //.oauth2Login(Customizer.withDefaults())
 
                 .sessionManagement(session->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -124,4 +124,8 @@ public class SecurityConfing {
 
 
     }
+
+//    public static void main(String[] args){
+//        System.out.println(new BCryptPasswordEncoder().encode("jonathanesmicontraseña"));
+//    }
 }

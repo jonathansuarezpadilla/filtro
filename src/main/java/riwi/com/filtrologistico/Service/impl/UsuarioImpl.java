@@ -2,6 +2,7 @@ package riwi.com.filtrologistico.Service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import riwi.com.filtrologistico.Exception.ApiException;
 import riwi.com.filtrologistico.Models.Carga;
@@ -25,6 +26,8 @@ public class UsuarioImpl implements IUserService {
 
     @Autowired
     private CargaRepository cargaRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserEntity create(UserRequest request) {
@@ -35,7 +38,7 @@ public class UsuarioImpl implements IUserService {
                 .email(request.getEmail())
                 .rol(request.getRol())
                 .tel(request.getTel())
-                .password(request.getPassword()) // agregar encriptacion de contraseña
+                .password(passwordEncoder.encode(request.getPassword())) // agregar encriptacion de contraseña
                 .build();
 
         return userRepository.save(usuario);
@@ -70,7 +73,7 @@ public class UsuarioImpl implements IUserService {
             usuario.setTel(userRequest.getTel());
         }
         if(userRequest.getPassword()!=null){
-            usuario.setPassword(userRequest.getPassword()); //passwordENCODER
+            usuario.setPassword(passwordEncoder.encode(userRequest.getPassword())); //passwordENCODER
         }
         userRepository.save(usuario);
     }
@@ -84,7 +87,7 @@ public class UsuarioImpl implements IUserService {
         usuario.setEmail(request.getEmail());
         usuario.setRol(request.getRol());
         usuario.setTel(request.getTel());
-        usuario.setPassword(request.getPassword()); // hasear
+        usuario.setPassword(passwordEncoder.encode(request.getPassword())); // hasear
         userRepository.save(usuario);
     }
 
