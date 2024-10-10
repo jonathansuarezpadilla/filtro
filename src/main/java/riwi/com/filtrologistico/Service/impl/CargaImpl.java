@@ -43,14 +43,14 @@ public class CargaImpl implements ICargaService {
 
         Carga carga=cargaRepository.findById(id).orElseThrow(()->new ApiException("La Carga no existe"));
 
-        if(carga.getWeight()== null){
+        if(request.getWeight()!= null){
             carga.setWeight(request.getWeight());
         }
 
-        if(carga.getDimensions()== null){
+        if(request.getDimensions()!= null){
             carga.setDimensions(request.getDimensions());
         }
-        if(carga.getStatus()== null){
+        if(request.getStatus()!= null){
             carga.setStatus(request.getStatus());
         }
         cargaRepository.save(carga);

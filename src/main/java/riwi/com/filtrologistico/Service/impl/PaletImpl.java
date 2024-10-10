@@ -27,7 +27,6 @@ public class PaletImpl implements IPaletService {
     public Palet create(PaletRequest paletRequest) {
 
 
-
         //DTO -> entity
         Palet palet = new Palet().builder()
                 .capacityMax(paletRequest.getCapacityMax())
@@ -49,13 +48,13 @@ public class PaletImpl implements IPaletService {
     public void path(PaletRequest paletRequest, String id) {
         Palet palet= paletRepository.findById(id).orElseThrow(()->new ApiException("El palet no existe"));
 
-        if(palet.getCapacityMax()==null){
+        if(paletRequest.getCapacityMax()!=null){
             palet.setCapacityMax(paletRequest.getCapacityMax());
         }
-        if(palet.getLocation()==null){
+        if(paletRequest.getLocation()!=null){
             palet.setLocation(paletRequest.getLocation());
         }
-        if(palet.getStatusPalet()==null){
+        if(paletRequest.getStatusPalet()!=null){
             palet.setStatusPalet(paletRequest.getStatusPalet());
         }
         paletRepository.save(palet);

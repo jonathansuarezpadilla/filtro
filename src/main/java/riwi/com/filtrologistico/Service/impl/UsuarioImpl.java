@@ -31,6 +31,7 @@ public class UsuarioImpl implements IUserService {
 
     @Override
     public UserEntity create(UserRequest request) {
+
         // dto --> entidad
         UserEntity usuario = new UserEntity().builder()
                 .nombre(request.getNombre())
